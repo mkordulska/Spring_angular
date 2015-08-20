@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section>
+    <div flash-message="5000" ></div>
+
+    <p>Podaj dane autora:</p>
+    <input type="text">
+    <button ng-click="search()">Szukaj</button>
+
+    <table>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+        </tr>
+        <tr ng-repeat="author in authors">
+            <td>{{ author.firstName }}</td>
+            <td>{{ author.lastName }}</td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>
