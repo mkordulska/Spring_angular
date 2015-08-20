@@ -4,6 +4,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
     $scope.books = [];
     $scope.gridOptions = { data: 'books' };
     $scope.book ={title: undefined, authors: []};
+    $scope.authors=[];
     
     $scope.saveBook = function () {	
     	bookAddService.saveBook($scope.book).then(function () {
@@ -16,13 +17,9 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
             templateUrl: 'books/html/add-author-modal.html',
             controller: 'AuthorAddModalController',
             size: 'sm',
-            resolve: {
-                author: function() {
-                    return $scope.book.authors;
-                }
-            }
-        }).result.then(function(){
-        	
+        }).result.then(function(response){
+        	  $scope.book.authors.push(response);
+        	$scope.authors.push(response);
         });
     };
     

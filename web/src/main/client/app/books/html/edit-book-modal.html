@@ -1,0 +1,21 @@
+<div>
+	<form name="authorForm" novalidate>
+		<div class="modal-header">
+			<h3 class="modal-title">Edytuj książkę</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-12">
+					<p>
+						<input type="text" placeholder="Nowy tytuł" name="title"
+							data-ng-model="book.title" data-ng-required="true">
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="edit()">Edytuj</button>
+			<button class="btn btn-warning" ng-click="$dismiss()">Anuluj</button>
+		</div>
+	</form>
+</div>
