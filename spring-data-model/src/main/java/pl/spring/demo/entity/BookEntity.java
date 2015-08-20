@@ -25,9 +25,10 @@ public class BookEntity implements Serializable {
     protected BookEntity() {
 }
 
-    public BookEntity(Long id, String title) {
+    public BookEntity(Long id, String title, Set<AuthorEntity> authors) {
         this.id = id;
         this.title = title;
+        this.authors =authors;
     }
 
     public Long getId() {
