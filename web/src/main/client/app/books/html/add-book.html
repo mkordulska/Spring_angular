@@ -4,7 +4,7 @@
 	<section>
 		<p></p>
 		<p>Podaj tytuł książki</p>
-		<input type="text" ng-model="book.title">
+		<input type="text" id = "title" onkeyup="enableButton()" ng-model="book.title">
 		<p></p>
 		<p><button ng-click="addAuthor()" onclick="enableButton()">Dodaj autora</button></p>
 		<p><button id="save" ng-click="saveBook(book)" disabled>Zapisz książkę</button></p>
@@ -23,7 +23,7 @@
 		<script>
 			function enableButton() {
 			    var authorTableLength = document.getElementById("authorTable").rows.length;
-			    if(authorTableLength != 0){
+			    if(authorTableLength != 0 && title.value != ""){
 			       document.getElementById("save").disabled = false;
 			    }
 			}
