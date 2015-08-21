@@ -3,11 +3,12 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
 
     $scope.books = [];
     $scope.gridOptions = { data: 'books' };
-    $scope.book ={title: undefined, authors: []};
+    $scope.book ={id: null, title: '', authors: []};
     $scope.authors=[];
     
-    $scope.saveBook = function () {	
-    	bookAddService.saveBook($scope.book);
+    $scope.saveBook = function (book) {	
+    	bookAddService.saveBook(book);
+    	$scope.books.push(book);
     };
     
     $scope.addAuthor = function () {

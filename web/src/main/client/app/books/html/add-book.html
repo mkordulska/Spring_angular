@@ -6,19 +6,30 @@
 		<p>Podaj tytuł książki</p>
 		<input type="text" ng-model="book.title">
 		<p></p>
-		<p><button ng-click="addAuthor()">Dodaj autora</button></p>
-		<p><button ng-click="saveBook()">Zapisz książkę</button></p>
+		<p><button ng-click="addAuthor()" onclick="enableButton()">Dodaj autora</button></p>
+		<p><button id="save" ng-click="saveBook(book)" disabled>Zapisz książkę</button></p>
 		<p></p>
-		<table>
+		<table id="authorTable">
 			<tr>
 				<th>Imię</th>
 				<th>Nazwisko</th>
 			</tr>
-			<tr ng-repeat="author in authors">
+			<tr ng-repeat="author in book.authors">
 				<td>{{ author.firstName }}</td>
 				<td>{{ author.lastName }}</td>
 			</tr>
 		</table>
+
+		<script>
+			function enableButton() {
+			    var x = document.getElementById("authorTable").rows.length;
+			    if(x == 0){
+			       document.getElementById("save").disabled = true;
+			    }else{
+			         document.getElementById("save").disabled = false;
+			    }
+			}
+		</script>
 	</section>
 </body>
 </html>

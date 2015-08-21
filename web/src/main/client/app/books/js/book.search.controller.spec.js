@@ -18,6 +18,20 @@ describe('book controller', function () {
         // then
         expect($scope.search).toBeDefined();
     }));
+    
+    it('deleteBook is defined', inject(function ($controller) {
+        // when
+        $controller('BookSearchController', {$scope: $scope});
+        // then
+        expect($scope.deleteBook).toBeDefined();
+    }));
+    
+    it('editBook is defined', inject(function ($controller) {
+        // when
+        $controller('BookSearchController', {$scope: $scope});
+        // then
+        expect($scope.editBook).toBeDefined();
+    }));
 
     it('delete book should call bookService.deleteBook', inject(function ($controller, $q, bookService, Flash) {
         // given
@@ -37,4 +51,22 @@ describe('book controller', function () {
         expect(Flash.create).toHaveBeenCalledWith('success', 'Książka została usunięta.', 'custom-class');
         expect($scope.books.length).toBe(0);
     }));
+    
+//    it('search book should call bookService.search', inject(function ($controller, $q, bookService) {
+//    	// given
+//    	$controller('BookSearchController', {$scope: $scope});
+//    	
+//    	var titlePrefix = 'T';
+//    	$scope.books = [{id: 1, title: 'test'}, {id: 2, title: 'niezgodna'}];
+//    	var searchDeferred = $q.defer();
+//    	spyOn(bookService, 'search').and.returnValue(searchDeferred.promise);
+//    	// when
+//    	$scope.search(titlePrefix);
+//    	searchDeferred.resolve();
+//    	$scope.$digest();
+//    	// then
+//    	expect(bookService.search).toHaveBeenCalledWith(titlePrefix);
+//    	expect($scope.books.length).toBe(1);
+//    }));
+
 });
