@@ -3,7 +3,7 @@ angular.module('app.authors').factory('authorRestService', function ($http, curr
 
     return {
         search: function () {
-            return $http.get(currentContextPath.get() + 'rest/authors');
+            return $http.get(currentContextPath.get() + 'rest/authors/author-list');
         }
     };
 });

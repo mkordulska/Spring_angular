@@ -1,4 +1,4 @@
-angular.module('app.books').controller('BookSearchController', function ($scope, $window, $location, bookService, Flash) {
+angular.module('app.books').controller('BookSearchController', function ($scope, $window, $location, bookService, bookAddService, Flash, $modal) {
     'use strict';
 
     $scope.books = [];
@@ -10,6 +10,14 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
             if ($scope.books[i].id === bookId) {
                 $scope.books.splice(i, 1);
                 break;
+            }
+        }
+    };
+    
+    var findBookById = function (bookId) {
+        for (var i = 0; i < $scope.books.length; i = i + 1) {
+            if ($scope.books[i].id === bookId) {
+            	return $scope.books[i];
             }
         }
     };
@@ -31,6 +39,18 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
 
     $scope.addBook = function () {
         $location.url('/books/add-book');
+    };
+    
+    $scope.editBook = function (bookId) {
+        $modal.open({
+            templateUrl: 'books/html/edit-book-modal.html',
+            controller: 'BookEditModalController',
+            size: 'sm',
+        }).result.then(function(response){
+        	var book = findBookById(bookId);
+           	book.title = response;
+           	bookAddService.saveBook(book);
+        });
     };
 
 });

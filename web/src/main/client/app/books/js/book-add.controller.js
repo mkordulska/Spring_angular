@@ -7,9 +7,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
     $scope.authors=[];
     
     $scope.saveBook = function () {	
-    	bookAddService.saveBook($scope.book).then(function () {
-            Flash.create('success', 'Książka została dodana.', 'custom-class');
-        });
+    	bookAddService.saveBook($scope.book);
     };
     
     $scope.addAuthor = function () {
@@ -18,7 +16,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
             controller: 'AuthorAddModalController',
             size: 'sm',
         }).result.then(function(response){
-        	  $scope.book.authors.push(response);
+        	$scope.book.authors.push(response);
         	$scope.authors.push(response);
         });
     };
