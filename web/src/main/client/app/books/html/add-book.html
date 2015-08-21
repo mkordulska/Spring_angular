@@ -22,11 +22,9 @@
 
 		<script>
 			function enableButton() {
-			    var x = document.getElementById("authorTable").rows.length;
-			    if(x == 0){
-			       document.getElementById("save").disabled = true;
-			    }else{
-			         document.getElementById("save").disabled = false;
+			    var authorTableLength = document.getElementById("authorTable").rows.length;
+			    if(authorTableLength != 0){
+			       document.getElementById("save").disabled = false;
 			    }
 			}
 		</script>
