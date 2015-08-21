@@ -13,14 +13,6 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
             }
         }
     };
-    
-    var findBookById = function (bookId) {
-        for (var i = 0; i < $scope.books.length; i = i + 1) {
-            if ($scope.books[i].id === bookId) {
-            	return $scope.books[i];
-            }
-        }
-    };
 
     $scope.search = function () {
         bookService.search($scope.prefix).then(function (response) {
@@ -41,13 +33,12 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
         $location.url('/books/add-book');
     };
     
-    $scope.editBook = function (bookId) {
+    $scope.editBook = function (book) {
         $modal.open({
             templateUrl: 'books/html/edit-book-modal.html',
             controller: 'BookEditModalController',
             size: 'sm',
         }).result.then(function(response){
-        	var book = findBookById(bookId);
            	book.title = response;
            	bookAddService.saveBook(book);
         });
