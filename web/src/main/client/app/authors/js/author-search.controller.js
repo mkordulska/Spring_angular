@@ -3,7 +3,7 @@ angular.module('app.authors').controller('AuthorSearchController', function ($sc
 
     $scope.authors = [];
     $scope.gridOptions = { data: 'authors' };
-    $scope.author = {firstName: undefined, lastName: undefined};
+    $scope.prefix='';
 
     $scope.search = function () {
         authorService.search().then(function (response) {
@@ -13,9 +13,9 @@ angular.module('app.authors').controller('AuthorSearchController', function ($sc
         });
     };
     
-//    $scope.myCustomSearchAuthor = function(author, searchAuthor){
-//    	if(!! searchAuthor){
-//    	return author.firstName.substring(0,searchAuthor.length).match(searchAuthor);}
-//    };
+    $scope.searchAuthor = function (actual, expected) {
+        var lowerStr = (actual + '').toLowerCase();
+        return lowerStr.indexOf(expected.toLowerCase()) === 0;
+    };
 
 });
