@@ -13,10 +13,12 @@
 			<tr>
 				<th>Imię</th>
 				<th>Nazwisko</th>
+				<th>Usuń</th>
 			</tr>
 			<tr ng-repeat="author in book.authors">
 				<td>{{ author.firstName }}</td>
 				<td>{{ author.lastName }}</td>
+				<td> <button ng-click="deleteAuthor(author)">Usuń</button></td>
 			</tr>
 		</table>
 

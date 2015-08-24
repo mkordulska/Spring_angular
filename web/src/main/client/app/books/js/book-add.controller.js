@@ -5,6 +5,10 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
     $scope.gridOptions = { data: 'books' };
     $scope.book ={id: null, title: '', authors: []};
     
+    var removeAuthor = function (author) {
+    	$scope.book.authors.splice($scope.book.authors.indexOf(author), 1);
+    };
+    
     $scope.saveBook = function () {	
     	bookAddService.saveBook($scope.book).then(function (response) {
             $scope.books.push(response.data);
@@ -19,6 +23,10 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
         }).result.then(function(response){
         	$scope.book.authors.push(response);
         });
+    };
+    
+    $scope.deleteAuthor = function (author) {
+    	removeAuthor(author);
     };
     
 });
