@@ -4,11 +4,11 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
     $scope.books = [];
     $scope.gridOptions = { data: 'books' };
     $scope.book ={id: null, title: '', authors: []};
-    $scope.authors=[];
     
-    $scope.saveBook = function (book) {	
-    	bookAddService.saveBook(book);
-    	$scope.books.push(book);
+    $scope.saveBook = function () {	
+    	bookAddService.saveBook($scope.book).then(function (response) {
+            $scope.books.push(response.data);
+        });
     };
     
     $scope.addAuthor = function () {
@@ -18,7 +18,6 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
             size: 'sm',
         }).result.then(function(response){
         	$scope.book.authors.push(response);
-        	$scope.authors.push(response);
         });
     };
     

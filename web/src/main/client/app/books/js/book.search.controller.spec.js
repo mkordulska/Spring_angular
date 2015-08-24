@@ -35,6 +35,7 @@ describe('book controller', function () {
 
     it('delete book should call bookService.deleteBook', inject(function ($controller, $q, bookService, Flash) {
         // given
+    	
         $controller('BookSearchController', {$scope: $scope});
 
         var bookId = 1;
@@ -52,21 +53,22 @@ describe('book controller', function () {
         expect($scope.books.length).toBe(0);
     }));
     
-//    it('search book should call bookService.search', inject(function ($controller, $q, bookService) {
-//    	// given
-//    	$controller('BookSearchController', {$scope: $scope});
-//    	
-//    	var titlePrefix = 'T';
-//    	$scope.books = [{id: 1, title: 'test'}, {id: 2, title: 'niezgodna'}];
-//    	var searchDeferred = $q.defer();
-//    	spyOn(bookService, 'search').and.returnValue(searchDeferred.promise);
-//    	// when
-//    	$scope.search(titlePrefix);
-//    	searchDeferred.resolve();
-//    	$scope.$digest();
-//    	// then
-//    	expect(bookService.search).toHaveBeenCalledWith(titlePrefix);
-//    	expect($scope.books.length).toBe(1);
-//    }));
+    it('search book should call bookService.search', inject(function ($controller, $q, bookService) {
+    	// given
+    	$controller('BookSearchController', {$scope: $scope});
+    	
+    	var searchDeferred = $q.defer();
+    	$scope.prefix = 'T';
+    	spyOn(bookService, 'search').and.returnValue(searchDeferred.promise);
+    	// when
+    	$scope.search();
+    	searchDeferred.resolve({data: [{id: 1, title: 'test'}]});
+    	$scope.$digest();
+    	// then
+    	expect(bookService.search).toHaveBeenCalledWith($scope.prefix);
+    	expect($scope.books.length).toBe(1);
+    	expect($scope.books[0].id).toBe(1);
+    	expect($scope.books[0].title).toBe('test');
+    }));
 
 });

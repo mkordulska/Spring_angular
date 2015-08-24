@@ -30,18 +30,17 @@ describe('book controller', function () {
         // given
         $controller('BookAddController', {$scope: $scope});
 
-        var book = {id: null, title: 'test'};
-        $scope.books = [];
+        $scope.book ={id: null, title: 'test'};
         var saveDeferred = $q.defer();
         spyOn(bookAddService, 'saveBook').and.returnValue(saveDeferred.promise);
         // when
-        $scope.saveBook(book);
-        saveDeferred.resolve();
+        $scope.saveBook();
+        saveDeferred.resolve({data: {id: 1, title: 'test'}});
         $scope.$digest();
         // then
-        expect(bookAddService.saveBook).toHaveBeenCalledWith(book);
+        expect(bookAddService.saveBook).toHaveBeenCalledWith($scope.book);
         expect($scope.books.length).toBe(1);
-//        expect($scope.books[0].id).toBe(1);
+        expect($scope.books[0].id).toBe(1);
         expect($scope.books[0].title).toBe('test');
     }));
 
