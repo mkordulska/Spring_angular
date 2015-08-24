@@ -1,8 +1,6 @@
 angular.module('app.books').controller('BookAddController', function ($scope, $window, $location, bookAddService, Flash, $modal) {
     'use strict';
 
-    $scope.books = [];
-    $scope.gridOptions = { data: 'books' };
     $scope.book ={title: '', authors: []};
     
     var removeAuthor = function (author) {
@@ -11,7 +9,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
     
     $scope.saveBook = function () {	
     	bookAddService.saveBook($scope.book).then(function (response) {
-            $scope.books.push(response.data);
+            $scope.book = response.data;
         });
     };
     
