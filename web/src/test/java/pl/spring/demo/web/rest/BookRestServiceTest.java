@@ -20,6 +20,7 @@ import pl.spring.demo.to.BookTo;
 import pl.spring.demo.web.utils.FileUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -67,11 +68,13 @@ public class BookRestServiceTest {
 
                 .andExpect(jsonPath("[0].id").value(bookTo1.getId().intValue()))
                 .andExpect(jsonPath("[0].title").value(bookTo1.getTitle()))
-//                .andExpect(jsonPath("[0].authors").value(bookTo1.getAuthors()))
+                .andExpect(jsonPath("[0].authors.firstName").value((new ArrayList<>(bookTo1.getAuthors())).get(0).getFirstName()))
+                .andExpect(jsonPath("[0].authors.lastName").value((new ArrayList<>(bookTo1.getAuthors())).get(0).getLastName()))
 
                 .andExpect(jsonPath("[1].id").value(bookTo2.getId().intValue()))
-                .andExpect(jsonPath("[1].title").value(bookTo2.getTitle()));
-//                .andExpect(jsonPath("[1].authors").value(bookTo2.getAuthors()));
+                .andExpect(jsonPath("[1].title").value(bookTo2.getTitle()))
+                .andExpect(jsonPath("[1].authors.firstName").value((new ArrayList<>(bookTo2.getAuthors())).get(0).getFirstName()))
+                .andExpect(jsonPath("[1].authors.lastName").value((new ArrayList<>(bookTo2.getAuthors())).get(0).getLastName()));
     }
 
     @Test
