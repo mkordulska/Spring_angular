@@ -25,6 +25,13 @@ describe('book controller', function () {
         // then
         expect($scope.addAuthor).toBeDefined();
     }));
+    
+    it('deleteAuthor is defined', inject(function ($controller) {
+    	// when
+    	$controller('BookAddController', {$scope: $scope});
+    	// then
+    	expect($scope.deleteAuthor).toBeDefined();
+    }));
 
     it('save book should call bookAddService.saveBook', inject(function ($controller, $q, bookAddService) {
         // given
