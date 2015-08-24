@@ -3,7 +3,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
 
     $scope.books = [];
     $scope.gridOptions = { data: 'books' };
-    $scope.book ={id: null, title: '', authors: []};
+    $scope.book ={title: '', authors: []};
     
     var removeAuthor = function (author) {
     	$scope.book.authors.splice($scope.book.authors.indexOf(author), 1);
