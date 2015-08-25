@@ -1,27 +1,39 @@
-<div>
-	<form name="authorForm" novalidate>
-		<div class="modal-header">
-			<h3 class="modal-title">Dodaj autora</h3>
-		</div>
-		<div class="modal-body">
-			<div class="row">
-				<div class="col-md-12">
-					<p>
-						<input type="text" placeholder="Imię" name="firstName"
-							class="form-control" data-ng-model="author.firstName"
-							data-ng-required="true">
-					</p>
-					<p>
-						<input type="text" placeholder="Nazwisko" name="lastName"
-							class="form-control" data-ng-model="author.lastName"
-							data-ng-required="true">
-					</p>
+<!DOCTYPE html>
+<html>
+<body>
+	<section>
+		<div>
+			<form name="authorForm" novalidate>
+				<div class="modal-header">
+					<h3 class="modal-title">Dodaj autora</h3>
 				</div>
-			</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<p>
+							<p
+								ng-show="authorForm.firstName.$invalid && authorForm.$submitted">Podaj
+								imię!</p>
+							<input type="text" placeholder="Imię" name="firstName"
+								data-ng-model="author.firstName" ng-required="true">
+							</p>
+							<p>
+							<p
+								ng-show="authorForm.lastName.$invalid && authorForm.$submitted">Podaj
+								nazwisko!</p>
+							<input type="text" placeholder="Nazwisko" name="lastName"
+								data-ng-model="author.lastName" ng-required="true">
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success"
+						data-ng-click="saveAuthor()">Dodaj</button>
+					<button class="btn btn-warning" ng-click="$dismiss()">Anuluj</button>
+				</div>
+			</form>
 		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-success" data-ng-click="saveAuthor()" ng-disabled = "authorForm.$invalid">Dodaj</button>
-			<button class="btn btn-warning" ng-click="$dismiss()">Anuluj</button>
-		</div>
-	</form>
-</div>
+	</section>
+</body>
+</html>

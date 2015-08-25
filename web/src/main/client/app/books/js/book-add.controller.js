@@ -19,8 +19,8 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
             controller: 'AuthorAddModalController',
             size: 'sm',
         }).result.then(function(response){
-        	$scope.book.authors.push(response);
-        });
+				$scope.book.authors.push(response);
+		});
     };
     
     $scope.deleteAuthor = function (author) {
