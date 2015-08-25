@@ -7,6 +7,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
+						<p ng-show="titleForm.$invalid && titleForm.$submitted">Podaj tytuł!</p>
 						<input type="text" placeholder="Nowy tytuł" name="title"
 							data-ng-model="title" data-ng-required="true">
 					</p>
@@ -14,7 +15,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button type = "submit" class="btn btn-success" ng-click="edit()" ng-disabled = "titleForm.$invalid">Edytuj</button>
+			<button type = "submit" class="btn btn-success" ng-click="edit()">Edytuj</button>
 			<button class="btn btn-warning" ng-click="$dismiss()">Anuluj</button>
 		</div>
 	</form>
