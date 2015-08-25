@@ -50,5 +50,6 @@ describe('book controller', function () {
         expect($scope.book.id).toBe(1);
         expect($scope.book.title).toBe('test');
     }));
-
+    
+    
 });

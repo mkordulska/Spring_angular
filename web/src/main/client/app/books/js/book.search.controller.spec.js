@@ -26,6 +26,13 @@ describe('book controller', function () {
         expect($scope.deleteBook).toBeDefined();
     }));
     
+    it('addBook is defined', inject(function ($controller) {
+    	// when
+    	$controller('BookSearchController', {$scope: $scope});
+    	// then
+    	expect($scope.addBook).toBeDefined();
+    }));
+    
     it('editBook is defined', inject(function ($controller) {
         // when
         $controller('BookSearchController', {$scope: $scope});
@@ -69,6 +76,54 @@ describe('book controller', function () {
     	expect($scope.books.length).toBe(1);
     	expect($scope.books[0].id).toBe(1);
     	expect($scope.books[0].title).toBe('test');
+    }));
+    
+    it('edit book should call bookAddService.saveBook', inject(function ($controller, $q, bookAddService, $modal) {
+    	// given    	
+    	$controller('BookSearchController', {$scope: $scope});
+        var fakeModal = {
+    		    result: {
+    		        then: function(confirmCallback, cancelCallback) {
+    		            this.confirmCallBack = confirmCallback;
+    		            this.cancelCallback = cancelCallback;
+    		        }
+    		    },
+    		    close: function( item ) {
+    		        this.result.confirmCallBack( item );
+    		    },
+    		    dismiss: function( type ) {
+    		        this.result.cancelCallback( type );
+    		    }
+    		};
+    	var updatedBook = {id: 1, title:'newTitle'};
+    	var updateDeferred = $q.defer();
+        $scope.books = [{id: 1, title: 'title'}];
+        
+    	spyOn(bookAddService, 'saveBook').and.returnValue(updateDeferred.promise);
+    	spyOn($modal, 'open').and.returnValue(fakeModal);
+    	
+    	// when
+    	$scope.editBook($scope.books[0]);
+    	fakeModal.close(updatedBook.title);
+    	updateDeferred.resolve();
+    	$scope.$digest();
+    	
+    	// then
+    	expect(bookAddService.saveBook).toHaveBeenCalledWith(updatedBook);
+    	expect($scope.books[0].title).toBe('newTitle');
+    }));
+    
+    it('addBook should call $location.url', inject(function ($controller, $location) {
+    	// given   	
+    	$controller('BookSearchController', {$scope: $scope});
+    	
+    	spyOn($location, 'url');
+    	
+    	// when
+    	$scope.addBook();
+    	
+    	// then
+    	expect($location.url).toHaveBeenCalledWith('/books/add-book');
     }));
 
 });

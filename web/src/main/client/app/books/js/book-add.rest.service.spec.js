@@ -5,6 +5,11 @@ describe('book add rest service', function () {
         module('app.main');
         module('app.books');
     });
+    
+    it('saveBook is defined', inject(function (bookAddRestService) {
+    	// then
+    	expect(bookAddRestService.saveBook).toBeDefined();
+    }));
 
 //  it('saveBook was called', inject(function (bookAddRestService, $http) {
 //	var book = {id: null, title: 'test'};
