@@ -78,40 +78,40 @@ describe('book controller', function () {
     	expect($scope.books[0].title).toBe('test');
     }));
     
-    it('edit book should call bookAddService.saveBook', inject(function ($controller, $q, bookAddService, $modal) {
-    	// given    	
-    	$controller('BookSearchController', {$scope: $scope});
-        var fakeModal = {
-    		    result: {
-    		        then: function(confirmCallback, cancelCallback) {
-    		            this.confirmCallBack = confirmCallback;
-    		            this.cancelCallback = cancelCallback;
-    		        }
-    		    },
-    		    close: function( item ) {
-    		        this.result.confirmCallBack( item );
-    		    },
-    		    dismiss: function( type ) {
-    		        this.result.cancelCallback( type );
-    		    }
-    		};
-    	var updatedBook = {id: 1, title:'newTitle'};
-    	var updateDeferred = $q.defer();
-        $scope.books = [{id: 1, title: 'title'}];
-        
-    	spyOn(bookAddService, 'saveBook').and.returnValue(updateDeferred.promise);
-    	spyOn($modal, 'open').and.returnValue(fakeModal);
-    	
-    	// when
-    	$scope.editBook($scope.books[0]);
-    	fakeModal.close(updatedBook.title);
-    	updateDeferred.resolve();
-    	$scope.$digest();
-    	
-    	// then
-    	expect(bookAddService.saveBook).toHaveBeenCalledWith(updatedBook);
-    	expect($scope.books[0].title).toBe('newTitle');
-    }));
+//    it('edit book should call bookAddService.saveBook', inject(function ($controller, $q, bookAddService, $modal) {
+//    	// given    	
+//    	$controller('BookSearchController', {$scope: $scope});
+//        var fakeModal = {
+//    		    result: {
+//    		        then: function(confirmCallback, cancelCallback) {
+//    		            this.confirmCallBack = confirmCallback;
+//    		            this.cancelCallback = cancelCallback;
+//    		        }
+//    		    },
+//    		    close: function( item ) {
+//    		        this.result.confirmCallBack( item );
+//    		    },
+//    		    dismiss: function( type ) {
+//    		        this.result.cancelCallback( type );
+//    		    }
+//    		};
+//    	var updatedBook = {id: 1, title:'newTitle'};
+//    	var updateDeferred = $q.defer();
+//        $scope.books = [{id: 1, title: 'title'}];
+//        
+//    	spyOn(bookAddService, 'saveBook').and.returnValue(updateDeferred.promise);
+//    	spyOn($modal, 'open').and.returnValue(fakeModal);
+//    	
+//    	// when
+//    	$scope.editBook($scope.books[0]);
+//    	fakeModal.close(updatedBook.title);
+//    	updateDeferred.resolve();
+//    	$scope.$digest();
+//    	
+//    	// then
+//    	expect(bookAddService.saveBook).toHaveBeenCalledWith(updatedBook);
+//    	expect($scope.books[0].title).toBe('newTitle');
+//    }));
     
     it('addBook should call $location.url', inject(function ($controller, $location) {
     	// given   	
@@ -125,5 +125,26 @@ describe('book controller', function () {
     	// then
     	expect($location.url).toHaveBeenCalledWith('/books/add-book');
     }));
+    
+    it('edit book should call bookAddService.save', inject(function ($controller, $q, $modal, bookAddService, Flash){
+    	//given
+    	$controller('BookSearchController', {$scope: $scope});
+    	$scope.books = [{id:1, title:'title', authors:[{id:1, firstName:'firstName', lastName:'lastName'}]}];
+    	var title = 'updatedTitle';
+    	var editDeferred = $q.defer();
+    	var modalDeferred = $q.defer();
+    	spyOn($modal, 'open').and.returnValue({result: modalDeferred.promise});
+    	spyOn(bookAddService, 'saveBook').and.returnValue(editDeferred.promise);
+    	spyOn(Flash, 'create');
+    	//when
+    	$scope.editBook($scope.books[0]);
+    	modalDeferred.resolve(title);
+    	editDeferred.resolve();
+    	$scope.$digest();
+    	//then
+    	expect($scope.books[0].title).toBe(title);
+    	expect(bookAddService.saveBook).toHaveBeenCalledWith($scope.books[0]);
+    	expect(Flash.create).toHaveBeenCalledWith('success', 'Tytuł został zmieniony.', 'custom-class');
+  }));
 
 });

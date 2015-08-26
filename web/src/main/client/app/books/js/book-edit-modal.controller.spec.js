@@ -8,17 +8,31 @@ describe('book edit modal controller', function () {
     });
 
     var $scope;
-    var modalInstance = { close: function() {}, dismiss: function() {} };
+    var $modalInstance = {close: function () {}};
     
     beforeEach(inject(function ($rootScope) {
         $scope = $rootScope.$new();
     }));
   
-    it('confirm is defined', inject(function ($controller) {
+    it('edit is defined', inject(function ($controller) {
     	// when
-    	$controller('BookEditModalController', {$scope: $scope, $modalInstance: modalInstance});
+    	$controller('BookEditModalController', {$scope: $scope, $modalInstance: $modalInstance});
     	// then
     	expect($scope.edit).toBeDefined();
+    }));
+    
+    it('edit should call modalInstance.close', inject(function ($controller){
+    	//given
+    	$controller('BookEditModalController', {$scope: $scope, $modalInstance: $modalInstance});
+    	$scope.title = 'test';
+    	$scope.titleForm = {
+    		$valid: true
+    	};
+    	spyOn($modalInstance, 'close');
+    	//when
+    	$scope.edit();
+    	//then
+    	expect($modalInstance.close).toHaveBeenCalledWith($scope.title);
     }));
      
 });

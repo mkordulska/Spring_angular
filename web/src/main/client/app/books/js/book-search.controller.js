@@ -41,6 +41,7 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
         }).result.then(function(response){
            	book.title = response;
            	bookAddService.saveBook(book);
+            Flash.create('success', 'Tytuł został zmieniony.', 'custom-class');
         });
     };
 

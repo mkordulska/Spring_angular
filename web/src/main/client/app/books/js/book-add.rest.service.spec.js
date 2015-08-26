@@ -10,24 +10,18 @@ describe('book add rest service', function () {
     	// then
     	expect(bookAddRestService.saveBook).toBeDefined();
     }));
-
-//  it('saveBook was called', inject(function (bookAddRestService, $http) {
-//	var book = {id: null, title: 'test'};
-//    spyOn($http,'post');
-//    bookAddRestService.saveBook(book);
-//    expect($http.post).toHaveBeenCalledWith( '/context.html/rest/books/book', book);
-//  }));
-    
+   
     it('saveBook was called', inject(function (bookAddRestService, $httpBackend) {
     	// given
-	    var url = '/context.html/rest/books/book';
-	    var httpResponse = {id: 1, title: 'test'};
-	    $httpBackend.expectPOST(url).respond(200, httpResponse);
-	    // when
-	    var promise = bookAddRestService.saveBook({id: null, title: 'test'});
-	    $httpBackend.flush();
-	    // then
-	    expect(promise.then).toBeDefined();
+    	var url = '/context.html/rest/books/book';
+    	var book = {id:1, title: 'testTitle', authors:[{id:1, firstName:'firstName', lastName:'lastName'}]};
+    	$httpBackend.expectPOST(url, book).respond(200, book);
+    	//then
+    	bookAddRestService.saveBook(book).then(function (response) {
+    		expect(response.status).toBe(200);
+    		expect(response.data).toEqual(book);
+    	});
+    	$httpBackend.flush();
 	    }));
 
 });

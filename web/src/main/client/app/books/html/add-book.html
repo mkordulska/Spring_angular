@@ -3,11 +3,14 @@
 <body>
 	<section>
 		<p></p>
+		<form name="titleForm" novalidate>
 		<p>Podaj tytuł książki</p>
-		<input type="text" id = "title" onkeyup="enableButton()" ng-model="book.title">
+		<input type="text" id = "title" ng-required="true" ng-model="book.title">
+		<p ng-show="titleForm.$invalid && titleForm.$submitted">Podaj tytuł!</p>
 		<p></p>
-		<p><button ng-click="addAuthor()" onclick="enableButton()">Dodaj autora</button></p>
-		<p><button id="save" ng-click="saveBook()" disabled>Zapisz książkę</button></p>
+		<p><button type="submit" id="save" ng-click="saveBook()">Zapisz książkę</button></p>
+		</form>
+		<p><button ng-click="addAuthor()">Dodaj autora</button></p>
 		<p></p>
 		<table id="authorTable">
 			<tr>
@@ -21,15 +24,6 @@
 				<td> <button ng-click="deleteAuthor(author)">Usuń</button></td>
 			</tr>
 		</table>
-
-		<script>
-			function enableButton() {
-			    var authorTableLength = document.getElementById("authorTable").rows.length;
-			    if(authorTableLength != 0 && title.value != ""){
-			       document.getElementById("save").disabled = false;
-			    }
-			}
-		</script>
 	</section>
 </body>
 </html>

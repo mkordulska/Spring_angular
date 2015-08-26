@@ -2,7 +2,7 @@ angular.module('app.books').controller('AuthorAddModalController', function ($mo
     'use strict';
     $scope.author = {firstName: undefined, lastName: undefined};
     $scope.saveAuthor = function(){
-    	if ($scope.authorForm.firstName.$valid && $scope.authorForm.lastName.$valid) {
+    	if ($scope.authorForm.$valid) {
     	    $modalInstance.close($scope.author);
     	}
     };

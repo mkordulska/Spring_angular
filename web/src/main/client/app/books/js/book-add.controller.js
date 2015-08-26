@@ -3,14 +3,16 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
 
     $scope.book ={title: '', authors: []};
     
-    var removeAuthor = function (author) {
-    	$scope.book.authors.splice($scope.book.authors.indexOf(author), 1);
-    };
-    
-    $scope.saveBook = function () {	
+    $scope.saveBook = function () {
+    	if($scope.book.authors.length>0 && $scope.titleForm.$valid){
     	bookAddService.saveBook($scope.book).then(function (response) {
             $scope.book = response.data;
+            Flash.create('success', 'Książka została dodana.', 'custom-class');
         });
+    	}
+    	else{
+    		Flash.create('danger', 'Błędne dane.', 'custom-class');
+    	}
     };
     
     $scope.addAuthor = function () {
@@ -24,7 +26,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $w
     };
     
     $scope.deleteAuthor = function (author) {
-    	removeAuthor(author);
+    	$scope.book.authors.splice($scope.book.authors.indexOf(author), 1);
     };
     
 });
