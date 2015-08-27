@@ -16,7 +16,7 @@ describe('author search rest service', function () {
     	expect(authorRestService.search).toBeDefined();
     }));
     
-    it('serach should send get request', inject (function(authorRestService){
+    it('search should send get request', inject (function(authorRestService){
     	var authors = [{id:1, firstName:'firstName', lastName:'lastName'}];
     	var url = '/context.html/rest/authors/author-list';
     	httpBackend.expectGET(url).respond(200, authors);
